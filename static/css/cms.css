@@ -7,7 +7,25 @@
 }
 
 .mdl-layout__content {
-    margin: 0 auto;
-    padding: 0 56px;
+    padding: 56px;
+}
+
+.mdl-data-table {
     width: 100%;
+}
+
+.mdl-textfield__error {
+    visibility: visible;
+}
+
+.mdl-textfield {
+    display: block;
+    width: 600px;
+}
+
+.new-post {
+    bottom: 56px;
+    position: fixed;
+    right: 56px;
+    z-index: 9999;
 }

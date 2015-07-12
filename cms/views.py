@@ -1,11 +1,12 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
 from google.appengine.api import users
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from django.views.generic.list import ListView
 
 from blog.models import Post
+from cms.forms import PostForm
 
 
 class RestrictedAccessMixin(object):
@@ -32,8 +33,26 @@ post_list = PostListView.as_view()
 
 
 class NewPostView(RestrictedAccessMixin, CreateView):
+    form_class = PostForm
     model = Post
     success_url = reverse_lazy('cms:post_list')
     template_name = 'cms/post_form.html'
 
 new_post = NewPostView.as_view()
+
+
+class UpdatePostView(RestrictedAccessMixin, UpdateView):
+    form_class = PostForm
+    model = Post
+    success_url = reverse_lazy('cms:post_list')
+    template_name = 'cms/post_form.html'
+
+update_post = UpdatePostView.as_view()
+
+
+class DeletePostView(RestrictedAccessMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('cms:post_list')
+    template_name = 'cms/post_confirm_delete.html'
+
+delete_post = DeletePostView.as_view()

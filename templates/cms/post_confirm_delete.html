@@ -1,0 +1,10 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete the post?</p>
+        <a class="mdl-button mdl-js-button mdl-button--raised" href="{% url 'cms:post_list' %}">Cancel</a>
+        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Delete">
+    </form>
+{% endblock content %}
