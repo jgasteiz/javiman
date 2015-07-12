@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'cms/base.html' %}
 
 {% block content %}
     {% for post in post_list %}
@@ -12,5 +12,10 @@
             <div>{{ post.body }}</div>
             <footer></footer>
         </article>
+    {% empty %}
+        <h1>No posts yet</h1>
+        <a href="{% url 'cms:new_post' %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Create one
+        </a>
     {% endfor %}
 {% endblock content %}
