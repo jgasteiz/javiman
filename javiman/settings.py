@@ -122,13 +122,51 @@ STATIC_URL = '/static/'
 
 
 # sensible default CPS settings, feel free to modify them
-CSP_DEFAULT_SRC = ("'self'", "*.gstatic.com")
-CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com", "*.gstatic.com", "*.storage.googleapis.com")
-CSP_FONT_SRC = ("'self'", "themes.googleusercontent.com", "*.gstatic.com")
-CSP_FRAME_SRC = ("'self'", "www.google.com", "www.youtube.com", "accounts.google.com", "apis.google.com", "plus.google.com")
-CSP_SCRIPT_SRC = ("'self'", "*.googleanalytics.com", "*.google-analytics.com", "ajax.googleapis.com", "*.storage.googleapis.com")
-CSP_IMG_SRC = ("'self'", "data:", "s.ytimg.com", "*.googleusercontent.com", "*.gstatic.com", "*.staticflickr.com", "*.s3.amazonaws.com")
-CSP_CONNECT_SRC = ("'self'", "plus.google.com", "www.google-analytics.com")
+CSP_DEFAULT_SRC = (
+    "'self'",
+    "*.gstatic.com",
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "fonts.googleapis.com",
+    "*.gstatic.com",
+    "*.storage.googleapis.com",
+)
+CSP_FONT_SRC = (
+    "'self'",
+    "themes.googleusercontent.com",
+    "*.gstatic.com",
+)
+CSP_FRAME_SRC = (
+    "'self'",
+    "www.google.com",
+    "www.youtube.com",
+    "accounts.google.com",
+    "apis.google.com",
+    "plus.google.com",
+)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "*.googleanalytics.com",
+    "*.google-analytics.com",
+    "ajax.googleapis.com",
+    "*.storage.googleapis.com",
+)
+CSP_IMG_SRC = (
+    "'self'",
+    "data:",
+    "s.ytimg.com",
+    "*.googleusercontent.com",
+    "*.gstatic.com",
+    "*.staticflickr.com",
+    "*.s3.amazonaws.com",
+    "*.imgs.xkcd.com",
+)
+CSP_CONNECT_SRC = (
+    "'self'",
+    "plus.google.com",
+    "www.google-analytics.com",
+)
 
 if DEBUG:
     CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "fonts.googleapis.com", "*.gstatic.com", "*.storage.googleapis.com")
