@@ -7,11 +7,18 @@
 }
 
 .mdl-layout__content {
-    padding: 56px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 40px 56px 160px;
 }
 
 .mdl-data-table {
+    table-layout: fixed;
     width: 100%;
+}
+
+.mdl-data-table td {
+    white-space: normal;
 }
 
 .mdl-textfield__error {
