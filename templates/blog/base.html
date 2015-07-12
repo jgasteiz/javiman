@@ -20,9 +20,9 @@
     </header>
     <nav id="navigation" class="navbar row">
         <ul class="main-menu">
-            <li><a href="/">Blog</a></li>
-            <li><a href="/archives/">Archives</a></li>
-            <li><a href="/about/">About</a></li>
+            <li><a href="{% url 'blog:home' %}">Blog</a></li>
+            {# <li><a href="/archives/">Archives</a></li> #}
+            <li><a href="{% url 'blog:about' %}">About</a></li>
         </ul>
     </nav>
     <div role="main">
