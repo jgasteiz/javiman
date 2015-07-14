@@ -1,5 +1,5 @@
 application: javiman-blog
-version: 3
+version: 4
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -9,21 +9,21 @@ handlers:
 - url: /_ah/(mapreduce|queue|warmup).*
   script: javiman.wsgi.application
   login: admin
-  secure: always
+  secure: never
 
 - url: /static/
   static_dir: static/
-  secure: always
+  secure: never
 
 # Set Django admin to be login:admin as well as Django's is_staff restriction
 - url: /cms.*
   script: javiman.wsgi.application
-  secure: always
+  secure: never
   login: admin
 
 - url: /.*
   script: javiman.wsgi.application
-  secure: always
+  secure: never
 
 skip_files:
     - manage.py
