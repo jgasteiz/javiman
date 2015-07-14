@@ -5,6 +5,14 @@ from django.db import models
 from markupfield.fields import MarkupField
 
 
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return super(PostManager, self).get_queryset()
+
+    def published(self):
+        return super(PostManager, self).get_queryset().filter(is_published=True)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=128)
     created = models.DateTimeField(null=True)
@@ -12,6 +20,7 @@ class Post(models.Model):
     slug = models.CharField(max_length=128, blank=True)
     body = MarkupField(default_markup_type='markdown')
     is_published = models.BooleanField(default=False)
+    objects = PostManager()
 
     def save(self, *args, **kwargs):
         if not self.slug:
