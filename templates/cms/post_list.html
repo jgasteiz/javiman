@@ -12,9 +12,9 @@
         </thead>
         <tbody>
         {% for post in post_list %}
-            <tr>
+            <tr {% if not post.is_published %}class="unpublished-post"{% endif %}>
                 <td>{{ post.title }}</td>
-                <td>{{ post.is_published }}</td>
+                <td>{% if post.is_published %}Yes{% else %}No{% endif %}</td>
                 <td>{{ post.created }}</td>
                 <td>
                     <a href="{% url 'cms:update_post' post.pk %}">Edit</a>
