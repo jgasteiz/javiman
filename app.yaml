@@ -11,23 +11,19 @@ handlers:
   login: admin
   secure: always
 
-- url: /static/admin/
-  static_dir: sitepackages/django/contrib/admin/static/admin/
-  secure: always
-
 - url: /static/
   static_dir: static/
-  secure: always
+  secure: optional
 
 # Set Django admin to be login:admin as well as Django's is_staff restriction
-- url: /admin.*
+- url: /cms.*
   script: javiman.wsgi.application
   secure: always
   login: admin
 
 - url: /.*
   script: javiman.wsgi.application
-  secure: always
+  secure: optional
 
 skip_files:
     - manage.py
