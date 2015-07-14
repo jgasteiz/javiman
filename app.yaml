@@ -1,5 +1,5 @@
 application: javiman-blog
-version: 2
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -13,7 +13,7 @@ handlers:
 
 - url: /static/
   static_dir: static/
-  secure: optional
+  secure: always
 
 # Set Django admin to be login:admin as well as Django's is_staff restriction
 - url: /cms.*
@@ -23,7 +23,7 @@ handlers:
 
 - url: /.*
   script: javiman.wsgi.application
-  secure: optional
+  secure: always
 
 skip_files:
     - manage.py
