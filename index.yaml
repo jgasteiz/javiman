@@ -15,6 +15,18 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: blog_post
+  properties:
+  - name: is_published
+  - name: created
+    direction: desc
+
+- kind: blog_post
+  properties:
+  - name: slug
+  - name: created
+    direction: desc
+
 - kind: cspreports_cspreport
   properties:
   - name: created
