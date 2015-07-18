@@ -1,34 +1,49 @@
 {% extends 'cms/base.html' %}
-{% load form_tags %}
+{% load static form_tags %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                {% if field|is_checkbox %}
-                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="{{ field.id_for_label }}">
-                    {{ field|add_css_class:'mdl-checkbox__input' }}
-                    <span class="mdl-checkbox__label">{{ field.label }}</span>
-                </label>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        {% if field|is_checkbox %}
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="{{ field.id_for_label }}">
+                            {{ field|add_css_class:'mdl-checkbox__input' }}
+                            <span class="mdl-checkbox__label">{{ field.label }}</span>
+                        </label>
+                        {% else %}
+                        {{ field|add_css_class:'mdl-textfield__input' }}
+                        <label for="{{ field.id_for_label }}" class="mdl-textfield__label">{{ field.label }}</label>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                            <span class="mdl-textfield__error">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                {% if object %}
+                <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Save">
                 {% else %}
-                {{ field|add_css_class:'mdl-textfield__input' }}
-                <label for="{{ field.id_for_label }}" class="mdl-textfield__label">{{ field.label }}</label>
+                <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Create">
                 {% endif %}
-
-                {% if field.errors %}
-                    {% for error in field.errors %}
-                    <span class="mdl-textfield__error">{{ error }}</span>
-                    {% endfor %}
-                {% endif %}
+                <a class="mdl-button mdl-js-button mdl-button--raised" href="{% url 'cms:post_list' %}">Cancel</a>
+            </form>
+        </div>
+        <div class="mdl-cell mdl-cell--8-col">
+            <div class="post-preview">
+                <h1 data-bind="id_title" data-format="text">Title</h1>
+                <div data-bind="id_body" data-format="markdown">Body</div>
             </div>
-        {% endfor %}
-
-        {% if object %}
-        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Save">
-        {% else %}
-        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Create">
-        {% endif %}
-        <a class="mdl-button mdl-js-button mdl-button--raised" href="{% url 'cms:post_list' %}">Cancel</a>
-    </form>
+        </div>
+    </div>
 {% endblock content %}
+
+{% block bodyend %}
+    <script src="{% static 'vendor/marked/marked.min.js' %}"></script>
+    <script src="{% static 'js/post-preview.js' %}"></script>
+{% endblock bodyend %}

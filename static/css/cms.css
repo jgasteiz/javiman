@@ -2,13 +2,24 @@
     box-sizing: border-box;
 }
 
-form {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
 textarea {
     height: 300px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.post-preview {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 40px;
+}
+
+@media (max-width: 839px) {
+    .post-preview {
+        padding: 0;
+    }
 }
 
 .mdl-layout__tab-bar {
@@ -22,6 +33,12 @@ textarea {
 .mdl-layout__content {
     padding: 40px 56px 160px;
     width: 100%;
+}
+
+@media (max-width: 839px) {
+    .mdl-layout__content {
+        padding: 20px 20px 80px;
+    }
 }
 
 .mdl-data-table {
@@ -39,8 +56,7 @@ textarea {
 
 .mdl-textfield {
     display: block;
-    max-width: 100%;
-    width: 600px;
+    width: 100%;
 }
 
 .new-post {
@@ -52,4 +68,10 @@ textarea {
 
 .unpublished-post {
     background-color: #FFF9C4;
+}
+
+@media (max-width: 839px) {
+    .mdl-cell--4-col {
+      width: calc(100% - 16px);
+    }
 }

@@ -1,6 +1,7 @@
 {
   "name": "javiman-blog",
   "dependencies": {
-    "material-design-lite": "~1.0.0"
+    "material-design-lite": "~1.0.0",
+    "marked": "~0.3.3"
   }
 }
