@@ -39,6 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangosecure',
+    'csp',
+    'cspreports',
     'djangae.contrib.gauth.datastore',
     'djangae.contrib.security',
     'djangae.contrib.uniquetool',
@@ -53,7 +56,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'djangae.contrib.gauth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'csp.middleware.CSPMiddleware',
     'session_csrf.CsrfMiddleware',
+    'djangosecure.middleware.SecurityMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -66,6 +71,23 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "session_csrf.context_processor"
 )
+
+SECURE_CHECKS = [
+    "djangosecure.check.sessions.check_session_cookie_secure",
+    "djangosecure.check.sessions.check_session_cookie_httponly",
+    "djangosecure.check.djangosecure.check_security_middleware",
+    "djangosecure.check.djangosecure.check_sts",
+    "djangosecure.check.djangosecure.check_frame_deny",
+    "djangosecure.check.djangosecure.check_ssl_redirect",
+    "javiman.checks.check_session_csrf_enabled",
+    "javiman.checks.check_csp_is_not_report_only"
+]
+
+CSP_REPORT_URI = reverse_lazy('report_csp')
+CSP_REPORTS_LOG = True
+CSP_REPORTS_LOG_LEVEL = 'warning'
+CSP_REPORTS_SAVE = True
+CSP_REPORTS_EMAIL_ADMINS = False
 
 ROOT_URLCONF = 'javiman.urls'
 
@@ -98,5 +120,56 @@ APPEND_SLASH = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# sensible default CPS settings, feel free to modify them
+CSP_DEFAULT_SRC = (
+    "'self'",
+    "*.gstatic.com",
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "fonts.googleapis.com",
+    "*.gstatic.com",
+    "*.storage.googleapis.com",
+)
+CSP_FONT_SRC = (
+    "'self'",
+    "themes.googleusercontent.com",
+    "*.gstatic.com",
+)
+CSP_FRAME_SRC = (
+    "'self'",
+    "www.google.com",
+    "www.youtube.com",
+    "accounts.google.com",
+    "apis.google.com",
+    "plus.google.com",
+)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "*.googleanalytics.com",
+    "*.google-analytics.com",
+    "ajax.googleapis.com",
+    "*.storage.googleapis.com",
+)
+CSP_IMG_SRC = (
+    "'self'",
+    "data:",
+    "s.ytimg.com",
+    "*.googleusercontent.com",
+    "*.gstatic.com",
+    "*.staticflickr.com",
+    "*.s3.amazonaws.com",
+    "*.imgs.xkcd.com",
+)
+CSP_CONNECT_SRC = (
+    "'self'",
+    "plus.google.com",
+    "www.google-analytics.com",
+)
+
+if DEBUG:
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "fonts.googleapis.com", "*.gstatic.com", "*.storage.googleapis.com")
 
 from djangae.contrib.gauth.settings import *
