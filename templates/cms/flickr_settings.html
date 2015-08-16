@@ -1,0 +1,20 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <table class="mdl-data-table mdl-shadow--2dp">
+        <thead>
+            <tr>
+                <th>Api key</th>
+                <th>User id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ flickr_settings.api_key }}</td>
+                <td>{{ flickr_settings.user_id }}</td>
+                <td><a href="{% url 'cms:update_flickr' flickr_settings.pk %}">Update</a></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}

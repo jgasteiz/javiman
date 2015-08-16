@@ -1,10 +1,11 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
 from google.appengine.api import users
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 
 from django.views.generic.list import ListView
 
+from javiman.models import FlickrSettings
 from blog.models import Post
 from cms.forms import PostForm
 
@@ -56,3 +57,28 @@ class DeletePostView(RestrictedAccessMixin, DeleteView):
     template_name = 'cms/post_confirm_delete.html'
 
 delete_post = DeletePostView.as_view()
+
+
+class FlickrView(RestrictedAccessMixin, TemplateView):
+    template_name = 'cms/flickr_settings.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FlickrView, self).get_context_data(*args, **kwargs)
+        try:
+            ctx['flickr_settings'] = FlickrSettings.objects.get()
+        except:
+            ctx['flickr_settings'], _ = FlickrSettings.objects.get_or_create(
+                user_id='n/a',
+                api_key='n/a',
+            )
+        return ctx
+
+flickr = FlickrView.as_view()
+
+
+class UpdateFlickrView(RestrictedAccessMixin, UpdateView):
+    model = FlickrSettings
+    success_url = reverse_lazy('cms:flickr')
+    template_name = 'cms/flickr_form.html'
+
+update_flickr = UpdateFlickrView.as_view()
