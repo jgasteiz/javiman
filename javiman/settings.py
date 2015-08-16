@@ -48,6 +48,7 @@ INSTALLED_APPS = (
 
     'cms',
     'blog',
+    'javiman',
 )
 
 MIDDLEWARE_CLASSES = (
