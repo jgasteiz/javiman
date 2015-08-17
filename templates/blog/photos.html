@@ -1,7 +1,8 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    {{ photos_url }}
+    <p>The following pictures have been taken from <a target="_blank" href="https://www.flickr.com/photos/jgasteiz/">my flickr profile</a>.</p>
+
     {% for photo in photo_list %}
         <section class="photo">
             <img class="photo__image" src="{{ photo.url }}" alt="{{ photo.title }}" title="{{ photo.title }}">
