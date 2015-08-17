@@ -133,3 +133,29 @@ iframe {
         }
     }
 }
+
+/*
+    Photos
+*/
+.photo {
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+.photo__title {
+    display: block;
+    font-size: 20px;
+}
+.photo__subtitle {
+    display: block;
+    font-size: 20px;
+}
+.photo__image {
+    display: block;
+    margin: 20px 0;
+}

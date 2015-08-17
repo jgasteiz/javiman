@@ -12,6 +12,13 @@ indexes:
 
 - kind: blog_photo
   properties:
+  - name: is_published
+  - name: order
+  - name: created
+    direction: desc
+
+- kind: blog_photo
+  properties:
   - name: order
   - name: created
     direction: desc

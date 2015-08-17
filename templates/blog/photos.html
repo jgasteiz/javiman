@@ -2,19 +2,13 @@
 
 {% block content %}
     {{ photos_url }}
-    {% for album in album_list %}
-        <article class="album">
-            <h1>{{ album.title }}</h1>
-            <h2>{{ album.description }}</h2>
-            <ul>
-                {% for photo in album.photos %}
-                <li>
-                    <img src="{{ photo.url }}" alt="{{ photo.title }}" title="{{ photo.title }}">
-                </li>
-                {% endfor %}
-            </ul>
-        </article>
+    {% for photo in photo_list %}
+        <section class="photo">
+            <img class="photo__image" src="{{ photo.url }}" alt="{{ photo.title }}" title="{{ photo.title }}">
+            <strong class="photo__title">{{ photo.title }}</strong>
+            <span class="photo__subtitle">{{ photo.subtitle }}</span>
+        </section>
     {% empty %}
-        <h1>Couldn't load albums from <a href="https://www.flickr.com/photos/jgasteiz/albums">my flickr account</a></h1>
+        <h1>There are no photos yet</h1>
     {% endfor %}
 {% endblock content %}
