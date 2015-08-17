@@ -9,19 +9,23 @@
 
         var formatText;
         if (format === 'markdown') {
-            formatText = function(text) {
+            format = function(text) {
                 bindingEl.innerHTML = marked(text);
             };
-        } else {
-            formatText = function(text) {
+        } else if (format === 'text') {
+            format = function(text) {
                 bindingEl.innerText = text;
+            };
+        } else if (format === 'image') {
+            format = function(imageUrl) {
+                bindingEl.src = imageUrl;
             };
         }
 
         input.addEventListener('keyup', function() {
-            formatText(input.value);
+            format(input.value);
         });
 
-        formatText(input.value);
+        format(input.value);
     });
 })();
