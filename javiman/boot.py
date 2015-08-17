@@ -3,7 +3,9 @@ from os.path import dirname, abspath, join, exists
 
 PROJECT_DIR = dirname(dirname(abspath(__file__)))
 SITEPACKAGES_DIR = join(PROJECT_DIR, "sitepackages")
+SITEPACKAGES_DEV_DIR = join(PROJECT_DIR, "sitepackages-dev")
 APPENGINE_DIR = join(SITEPACKAGES_DIR, "google_appengine")
+
 
 def fix_path():
     if exists(APPENGINE_DIR) and APPENGINE_DIR not in sys.path:
@@ -12,6 +14,8 @@ def fix_path():
     if SITEPACKAGES_DIR not in sys.path:
         sys.path.insert(1, SITEPACKAGES_DIR)
 
+    if SITEPACKAGES_DEV_DIR not in sys.path:
+        sys.path.insert(1, SITEPACKAGES_DEV_DIR)
 
 
 def get_app_config():
