@@ -10,6 +10,12 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: blog_photo
+  properties:
+  - name: order
+  - name: created
+    direction: desc
+
 - kind: blog_post
   properties:
   - name: __key__
