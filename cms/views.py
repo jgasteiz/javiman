@@ -6,8 +6,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView, TemplateVie
 from django.views.generic.list import ListView
 
 from javiman.models import FlickrSettings
-from blog.models import Post
-from cms.forms import PostForm
+from blog.models import Post, Photo
+from cms.forms import PostForm, PhotoForm
 
 
 class RestrictedAccessMixin(object):
@@ -59,26 +59,34 @@ class DeletePostView(RestrictedAccessMixin, DeleteView):
 delete_post = DeletePostView.as_view()
 
 
-class FlickrView(RestrictedAccessMixin, TemplateView):
-    template_name = 'cms/flickr_settings.html'
+class PhotoListView(RestrictedAccessMixin, ListView):
+    model = Photo
+    template_name = 'cms/photo_list.html'
 
-    def get_context_data(self, *args, **kwargs):
-        ctx = super(FlickrView, self).get_context_data(*args, **kwargs)
-        try:
-            ctx['flickr_settings'] = FlickrSettings.objects.get()
-        except:
-            ctx['flickr_settings'], _ = FlickrSettings.objects.get_or_create(
-                user_id='n/a',
-                api_key='n/a',
-            )
-        return ctx
-
-flickr = FlickrView.as_view()
+photo_list = PhotoListView.as_view()
 
 
-class UpdateFlickrView(RestrictedAccessMixin, UpdateView):
-    model = FlickrSettings
-    success_url = reverse_lazy('cms:flickr')
-    template_name = 'cms/flickr_form.html'
+class NewPhotoView(RestrictedAccessMixin, CreateView):
+    form_class = PhotoForm
+    model = Photo
+    success_url = reverse_lazy('cms:photo_list')
+    template_name = 'cms/photo_form.html'
 
-update_flickr = UpdateFlickrView.as_view()
+new_photo = NewPhotoView.as_view()
+
+
+class UpdatePhotoView(RestrictedAccessMixin, UpdateView):
+    form_class = PhotoForm
+    model = Photo
+    success_url = reverse_lazy('cms:photo_list')
+    template_name = 'cms/photo_form.html'
+
+update_photo = UpdatePhotoView.as_view()
+
+
+class DeletePhotoView(RestrictedAccessMixin, DeleteView):
+    model = Photo
+    success_url = reverse_lazy('cms:photo_list')
+    template_name = 'cms/photo_confirm_delete.html'
+
+delete_photo = DeletePhotoView.as_view()

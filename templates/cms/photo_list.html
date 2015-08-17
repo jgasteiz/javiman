@@ -1,0 +1,38 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <table class="mdl-data-table mdl-shadow--2dp">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Subtitle</th>
+                <th>Preview</th>
+                <th>Is published?</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for photo in photo_list %}
+            <tr {% if not photo.is_published %}class="unpublished-post"{% endif %}>
+                <td>{{ photo.title }}</td>
+                <td>{{ photo.subtitle }}</td>
+                <td><img class="photo-preview" src="{{ photo.get_flickr_preview }}" alt=""></td>
+                <td>{{ photo.is_published|yesno:"Yes,No" }}</td>
+                <td>{{ photo.created }}</td>
+                <td>
+                    <a href="{% url 'cms:update_photo' photo.pk %}">Edit</a>
+                    <span>|</span>
+                    <a href="{% url 'cms:delete_photo' photo.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
+
+{% block bodyend %}
+<a href="{% url 'cms:new_photo' %}" class="new-post mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+    <i class="material-icons">add</i>
+</a>
+{% endblock bodyend %}
