@@ -7,7 +7,6 @@ from django.views.generic import DetailView, ListView, TemplateView
 import requests
 
 from blog.models import Post, Photo
-from javiman.models import FlickrSettings
 
 
 class HomeView(ListView):

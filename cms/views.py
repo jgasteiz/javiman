@@ -5,7 +5,6 @@ from django.views.generic import CreateView, UpdateView, DeleteView, TemplateVie
 
 from django.views.generic.list import ListView
 
-from javiman.models import FlickrSettings
 from blog.models import Post, Photo
 from cms.forms import PostForm, PhotoForm
 
