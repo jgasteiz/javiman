@@ -4,6 +4,8 @@
     <table class="mdl-data-table mdl-shadow--2dp">
         <thead>
             <tr>
+                <th>Order</th>
+                <th>Change order</th>
                 <th>Title</th>
                 <th>Subtitle</th>
                 <th>Preview</th>
@@ -15,6 +17,19 @@
         <tbody>
         {% for photo in photo_list %}
             <tr {% if not photo.is_published %}class="unpublished-post"{% endif %}>
+                <td>{{ photo.order }}</td>
+                <td>
+                    <form action="{% url 'cms:set_photo_order' photo.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="-1" name="order_modifier">
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">keyboard_arrow_up</i></button>
+                    </form>
+                    <form action="{% url 'cms:set_photo_order' photo.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="1" name="order_modifier">
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">keyboard_arrow_down</i></button>
+                    </form>
+                </td>
                 <td>{{ photo.title }}</td>
                 <td>{{ photo.subtitle }}</td>
                 <td><img class="photo-preview" src="{{ photo.get_flickr_preview }}" alt=""></td>

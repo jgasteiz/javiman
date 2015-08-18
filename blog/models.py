@@ -58,6 +58,12 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
 
+    def reduce_order(self):
+        self.order = max(0, self.order - 1)
+
+    def increase_order(self):
+        self.order += 1
+
     def get_flickr_preview(self):
         """
         This will only work for jpeg images stored in flickr.

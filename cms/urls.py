@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^new_photo/$', 'cms.views.new_photo', name='new_photo'),
     url(r'^update_photo/(?P<pk>\d+)/$', 'cms.views.update_photo', name='update_photo'),
     url(r'^delete_photo/(?P<pk>\d+)/$', 'cms.views.delete_photo', name='delete_photo'),
+    url(r'^set_photo_order/(?P<pk>\d+)/$', 'cms.views.set_photo_order', name='set_photo_order'),
 
     url(r'^$', 'cms.views.post_list', name='post_list'),
 ]

@@ -1,9 +1,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
+from django.views.generic import CreateView, UpdateView, DeleteView, View, ListView
 from google.appengine.api import users
-from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
-
-from django.views.generic.list import ListView
 
 from blog.models import Post, Photo
 from cms.forms import PostForm, PhotoForm
@@ -89,3 +87,19 @@ class DeletePhotoView(RestrictedAccessMixin, DeleteView):
     template_name = 'cms/photo_confirm_delete.html'
 
 delete_photo = DeletePhotoView.as_view()
+
+
+class SetPhotoOrderView(RestrictedAccessMixin, View):
+    model = Photo
+
+    def post(self, request, *args, **kwargs):
+        photo = self.model.objects.get(pk=kwargs.get('pk'))
+        order_modifier = int(request.POST.get('order_modifier'))
+        if order_modifier > 0:
+            photo.increase_order()
+        else:
+            photo.decrease_order()
+        photo.save()
+        return redirect('cms:photo_list')
+
+set_photo_order = SetPhotoOrderView.as_view()
