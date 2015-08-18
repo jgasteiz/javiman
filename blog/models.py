@@ -58,6 +58,14 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.order = 0
+            for photo in Photo.objects.all():
+                photo.order += 1
+                photo.save()
+        super(Photo, self).save(*args, **kwargs)
+
     def decrease_order_and_save(self):
         self.order = max(0, self.order - 1)
         # Get the photo with the same order as this photo and increase its order.
