@@ -96,9 +96,9 @@ class SetPhotoOrderView(RestrictedAccessMixin, View):
         photo = self.model.objects.get(pk=kwargs.get('pk'))
         order_modifier = int(request.POST.get('order_modifier'))
         if order_modifier > 0:
-            photo.increase_order()
+            photo.increase_order_and_save()
         else:
-            photo.decrease_order()
+            photo.decrease_order_and_save()
         photo.save()
         return redirect('cms:photo_list')
 

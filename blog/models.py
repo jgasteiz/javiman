@@ -58,11 +58,25 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
 
-    def decrease_order(self):
+    def decrease_order_and_save(self):
         self.order = max(0, self.order - 1)
+        # Get the photo with the same order as this photo and increase its order.
+        photo_qs = Photo.objects.filter(order=self.order)
+        if photo_qs.exists():
+            photo = photo_qs[0]
+            photo.order = self.order + 1
+            photo.save()
+        self.save()
 
-    def increase_order(self):
+    def increase_order_and_save(self):
         self.order += 1
+        # Get the photo with the same order as this photo and decrease its order.
+        photo_qs = Photo.objects.filter(order=self.order)
+        if photo_qs.exists():
+            photo = photo_qs[0]
+            photo.order = self.order - 1
+            photo.save()
+        self.save()
 
     def get_flickr_preview(self):
         """
