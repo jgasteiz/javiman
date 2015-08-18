@@ -5,14 +5,18 @@
         <article class="post">
             <header>
                 <h1 class="entry-title"><a href="{% url 'blog:post' post.slug %}">{{ post.title }}</a></h1>
-                <abbr class="published" title="{{ post.created }}">
-                    {{ post.created }}
-                </abbr>
+                <abbr class="published" title="{{ post.created }}">{{ post.created }}</abbr>
             </header>
             <div>{{ post.body }}</div>
-            <footer></footer>
+        </article>
+    {% empty %}
+        <article class="post">
+            <header>
+                <h1 class="entry-title">There are no posts yet</h1>
+            </header>
         </article>
     {% endfor %}
+
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}
