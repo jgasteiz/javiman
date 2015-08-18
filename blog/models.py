@@ -60,8 +60,7 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.order = 0
-            for photo in Photo.objects.all():
+            for photo in Photo.objects.filter(order__gte=self.order):
                 photo.order += 1
                 photo.save()
         super(Photo, self).save(*args, **kwargs)
