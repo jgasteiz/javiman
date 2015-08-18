@@ -58,7 +58,7 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
 
-    def reduce_order(self):
+    def decrease_order(self):
         self.order = max(0, self.order - 1)
 
     def increase_order(self):
