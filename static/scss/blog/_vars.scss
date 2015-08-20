@@ -1,0 +1,16 @@
+$page-width: 800px;
+$gutter: 20px;
+
+$text-color: #444;
+
+$break-palm: 480px;
+$break-lap: 800px;
+
+@mixin respond-to($media) {
+    @if $media == 'palm' {
+        @media only screen and (max-width: $break-palm) { @content; }
+    }
+    @else if $media == 'lap' {
+        @media only screen and (max-width: $break-lap) { @content; }
+    }
+}

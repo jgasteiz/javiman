@@ -1,0 +1,60 @@
+body {
+    color: $text-color;
+    font-family: 'PT Serif', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6em;
+    margin: 0 auto;
+    max-width: $page-width;
+    padding: 0 $gutter;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.5em;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+a {
+    color: #2196F3;
+    text-decoration: none;
+
+    &:hover {
+        color: #2196F3;
+        text-decoration: underline;
+    }
+    &:visited {
+        color: #673AB7;
+    }
+}
+
+p {
+    margin: $gutter 0;
+}
+
+dt {
+    margin-top: $gutter;
+}
+
+dd {
+    margin-left: $gutter;
+}
+
+img,
+iframe {
+    max-width: 100%;
+}
