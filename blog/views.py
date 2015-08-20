@@ -39,7 +39,7 @@ post = PostView.as_view()
 
 class PhotoListView(ListView):
     model = Photo
-    paginate_by = 5
+    paginate_by = 12
     template_name = 'blog/photos.html'
 
     def get_queryset(self):
