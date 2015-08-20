@@ -151,6 +151,7 @@ CSP_SCRIPT_SRC = (
     "'self'",
     "*.googleanalytics.com",
     "*.google-analytics.com",
+    "code.jquery.com",
     "ajax.googleapis.com",
     "*.storage.googleapis.com",
 )
