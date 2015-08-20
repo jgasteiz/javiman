@@ -95,3 +95,14 @@ class Photo(models.Model):
         """
         image_url = self.url[:-6]
         return '{}_m.jpg'.format(image_url)
+
+    def get_640(self):
+        """
+        This will only work for jpeg images stored in flickr.
+        Given a url like:
+            //farm1.staticflickr.com/702/20638346971_1c14fc9bff_l.jpg,
+        this will return something like:
+            //farm1.staticflickr.com/702/20638346971_1c14fc9bff_z.jpg
+        """
+        image_url = self.url[:-6]
+        return '{}_z.jpg'.format(image_url)
