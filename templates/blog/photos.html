@@ -1,17 +1,31 @@
 {% extends 'blog/base.html' %}
+{% load static %}
+
+{% block body_class %}body--photos{% endblock body_class %}
 
 {% block content %}
-    <p>The following pictures have been taken from <a target="_blank" href="https://www.flickr.com/photos/jgasteiz/">my flickr profile</a>.</p>
+    <header class="photos-header">
+        <p>The following pictures have been taken from <a target="_blank" href="https://www.flickr.com/photos/jgasteiz/">my flickr profile</a>.</p>
+    </header>
 
+    {% spaceless %}
+    <div class="photos-container">
     {% for photo in photo_list %}
         <section class="photo">
-            <img class="photo__image" src="{{ photo.url }}" alt="{{ photo.title }}" title="{{ photo.title }}">
-            <strong class="photo__title">{{ photo.title }}</strong>
-            <span class="photo__subtitle">{{ photo.subtitle }}</span>
+            <img class="photo__image js-photo"
+                 src="{{ photo.get_640 }}"
+                 alt="{{ photo.title }}"
+                 title="{{ photo.title }}"
+                 data-src="{{ photo.url }}"
+                 data-title="{{ photo.title }}"
+                 data-subtitle="{{ photo.subtitle }}"
+                 >
         </section>
     {% empty %}
         <h1>There are no photos yet</h1>
     {% endfor %}
+    </div>
+    {% endspaceless %}
 
     <div class="pagination">
         <span class="step-links">
@@ -29,3 +43,8 @@
         </span>
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="{% static 'js/photos.js' %}"></script>
+{% endblock extra_js %}
