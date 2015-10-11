@@ -3,13 +3,29 @@ import json
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView
-import requests
+from django.views.decorators.cache import (
+    cache_page,
+    patch_cache_control,
+)
+from djangae.utils import on_production
 
 from blog.models import Post, Photo
 
+MAX_AGE = 1 if not on_production() else 3600
 
-class HomeView(ListView):
+
+class CacheMixin(object):
+    @method_decorator(cache_page(MAX_AGE))
+    def get(self, request, *args, **kwargs):
+        response = super(CacheMixin, self).get(request, *args, **kwargs)
+        patch_cache_control(response, public=True, max_age=MAX_AGE)
+        response['Pragma'] = 'Public'
+        return response
+
+
+class HomeView(CacheMixin, ListView):
     model = Post
     paginate_by = 3
     template_name = 'blog/home.html'
@@ -20,7 +36,7 @@ class HomeView(ListView):
 home = HomeView.as_view()
 
 
-class PostView(DetailView):
+class PostView(CacheMixin, DetailView):
     model = Post
     template_name = 'blog/post.html'
     slug_field = 'slug'
@@ -37,7 +53,7 @@ class PostView(DetailView):
 post = PostView.as_view()
 
 
-class PhotoListView(ListView):
+class PhotoListView(CacheMixin, ListView):
     model = Photo
     paginate_by = 12
     template_name = 'blog/photos.html'
@@ -48,7 +64,7 @@ class PhotoListView(ListView):
 photos = PhotoListView.as_view()
 
 
-class AboutView(TemplateView):
+class AboutView(CacheMixin, TemplateView):
     template_name = 'blog/about.html'
 
 about = AboutView.as_view()
