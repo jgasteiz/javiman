@@ -160,6 +160,7 @@ CSP_IMG_SRC = (
     "data:",
     "s.ytimg.com",
     "*.googleusercontent.com",
+    "*.google.com",
     "*.gstatic.com",
     "*.staticflickr.com",
     "*.s3.amazonaws.com",
