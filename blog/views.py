@@ -13,7 +13,7 @@ from djangae.utils import on_production
 
 from blog.models import Post, Photo
 
-MAX_AGE = 1 if not on_production() else 3600
+MAX_AGE = 1 if not on_production() else 90
 
 
 class CacheMixin(object):
