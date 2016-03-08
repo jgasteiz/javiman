@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'djangae.contrib.gauth.datastore',
     'djangae.contrib.security',
     'djangae.contrib.uniquetool',
+    'rest_framework',
 
     'cms',
     'blog',
@@ -122,6 +123,13 @@ APPEND_SLASH = True
 
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # sensible default CPS settings, feel free to modify them
 CSP_DEFAULT_SRC = (
