@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from django import forms
 from blog.models import Post, Photo
 
 
 class PostForm(forms.ModelForm):
+    created = forms.DateTimeField(initial=datetime.now)
+
     class Meta:
         fields = ('title', 'slug', 'body', 'is_published', 'created',)
         model = Post
